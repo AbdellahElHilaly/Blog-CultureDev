@@ -1,6 +1,6 @@
 
 
-<form action="" method="GET">
+<form action="" method="POST">
     <section class="vh-100" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -14,57 +14,58 @@
 
                     <form class="mx-1 mx-md-4">
 
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                        <input onkeyup="validation(this.value , this.type)" type="text" id="form3Example1c" class="form-control" />
-                        <label class="form-label" for="form3Example1c">Your Name</label>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input onkeyup="valideName(event)" name="name" type="text" id="form3Example1c" class="form-control" />
+                                <label class="form-label" for="form3Example1c" >Your Name</label>
+                                <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                        <input type="email" id="form3Example3c" class="form-control" />
-                        <label class="form-label" for="form3Example3c">Your Email</label>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                                <input onkeyup="valideEmail(event)"  name="email" type="email" id="form3Example3c" class="form-control" />
+                                <label class="form-label" for="form3Example3c">Your Email</label>
+                                <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                        <input type="password" id="form3Example4c" class="form-control  is-valid" />
-                        <label class="form-label" for="form3Example4c">Password</label>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                            <input onkeyup="validePassword(event)" name="password" type="password" id="form3Example4c" class="form-control  " />
+                            <label class="form-label" for="form3Example4c">Password</label>
+                            <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex flex-row align-items-center mb-4">
-                        <i class="fas fa-key fa-lg me-3 fa-fw"></i>
-                        <div class="form-outline flex-fill mb-0">
-                        <input type="password" id="form3Example4cd" class="form-control" />
-                        <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                        <div class="d-flex flex-row align-items-center mb-4">
+                            <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                            <div class="form-outline flex-fill mb-0">
+                            <input onkeyup="ConfirmePassord(event)" name="conf-password" type="password" id="form3Example4cd" class="form-control" />
+                            <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                            <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-check d-flex justify-content-center mb-5">
-                        <label class="form-check-label" for="form2Example3">
-                        Do you already have an account? <a href="login">  Sign In</a>
-                        </label>
-                    </div>
+                        <div class="form-check d-flex justify-content-center mb-5">
+                            <label class="form-check-label" for="form2Example3">
+                            Do you already have an account? <a href="login">  Sign In</a>
+                            </label>
+                        </div>
 
-                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" name="page" value="home" class="btn btn-primary btn-lg">Submit</button>
-                    </div>
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                            <button type="submit" name="submit" value="register" class="btn btn-primary btn-lg" id="btn-register-submite">Submit</button>
+                        </div>
 
                     </form>
 
                 </div>
                 <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-
-                    
-
                     <img src="" alt="">
-
                 </div>
                 </div>
             </div>
@@ -74,6 +75,30 @@
     </div>
     </section>
 </form>
+<script src="public/asset/js/validation.js"></script>
+
+<?php
+    require_once './app/controller/AdmineController.php';
+    $adminController = new AdminController();
+    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //     echo "<pre>";
+    //     print_r($adminController->handleFormData($_POST));
+    //     echo "</pre>";
+    // }
+
+
+    echo "<pre>";
+        print_r($adminController->getAdmin());
+        echo "</pre>";
+
+
+ 
+
+    
+
+
+?>
+
 
 
 
