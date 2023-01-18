@@ -34,15 +34,16 @@
             $this->pdo = new PDO($dsn, $this->username, $this->password);
         }
 
-        
-
         public function insert() {
             try {
                 $columns = implode(", ", array_keys($this->data));
-                $values = ":" . implode(", :", array_keys($this->data));
-                $sql = "INSERT INTO $this->table ($columns) VALUES ($values)";
+                $placeholders = ":" . implode(", :", array_keys($this->data));
+                $sql = "INSERT INTO $this->table ($columns) VALUES ($placeholders)";
                 $stmt = $this->pdo->prepare($sql);
-                $stmt->execute($this->data);
+                foreach($this->data as $key => $value) {
+                    $stmt->bindValue(':' . $key, $value);
+                }
+                $stmt->execute();
                 return true;
             } catch(PDOException $e) {
                 echo "Error: " . $e->getMessage();
@@ -50,14 +51,13 @@
             }
         }
         
+
+        
         
 
         public function select($where=NULL) {
             try {
-                $sql = "SELECT * FROM $this->table";
-                if($where != NULL) {
-                    $sql .= " WHERE $where";
-                }
+                $sql = "SELECT * FROM $this->table $where";
                 $stmt = $this->pdo->prepare($sql);
                 $stmt->execute();
                 $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -67,8 +67,8 @@
                 return false;
             }
         }
-    
-
+        
+        
 
         public function update($where=NULL) {
             try {
@@ -78,7 +78,11 @@
                     array_keys($this->data)
                 ));
                 $sql = "UPDATE $this->table SET $set $where";
+                print_r($sql);
                 $stmt = $this->pdo->prepare($sql);
+                foreach($this->data as $key => $value) {
+                    $stmt->bindValue(':' . $key, $value);
+                }
                 $stmt->execute($this->data);
                 return true;
             } catch(PDOException $e) {

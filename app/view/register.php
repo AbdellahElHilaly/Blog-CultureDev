@@ -1,3 +1,32 @@
+<?php
+    require_once './app/controller/AdmineController.php';
+    
+    $adminController = new AdminController();
+    ?>
+    
+
+
+    <?php if($_SERVER['REQUEST_METHOD'] === 'POST'):?>
+        
+        <?php if($adminController->handleFormData($_POST)!=1):?>
+            <?php $color='danger' ; $message = $adminController->handleFormData($_POST) ;
+            include_once 'app/view/include/alert.php'; ?>
+
+        <?php else:?>
+            <?php $color='success' ; $message = 'Success' ;
+            include_once 'app/view/include/alert.php'; ?>
+        <?php endif;?>
+    <?php endif;?>
+
+
+
+
+
+
+
+
+
+
 
 
 <form action="" method="POST">
@@ -77,27 +106,6 @@
 </form>
 <script src="public/asset/js/validation.js"></script>
 
-<?php
-    require_once './app/controller/AdmineController.php';
-    $adminController = new AdminController();
-    // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    //     echo "<pre>";
-    //     print_r($adminController->handleFormData($_POST));
-    //     echo "</pre>";
-    // }
-
-
-    echo "<pre>";
-        print_r($adminController->getAdmin());
-        echo "</pre>";
-
-
- 
-
-    
-
-
-?>
 
 
 

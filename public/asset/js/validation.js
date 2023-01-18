@@ -80,7 +80,7 @@ function invalidMessage(div , mesg){
 }
 
 formElements = {name:false , email : false , password : false , confirmPassword : false };
-formValidation();
+// formValidation();
 function formValidation(){
     // btnSubmit = document.getElementById('btn-register-submite');
     // let isValid = true;

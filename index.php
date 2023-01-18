@@ -3,7 +3,7 @@
 
 <?php
     require_once 'app/view/include/head.php'; 
-    require_once 'app/view/include/header.php'; 
+    require_once 'app/view/include/header.php';
     
     require_once 'autoload.php';
     

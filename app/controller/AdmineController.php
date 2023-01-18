@@ -44,20 +44,24 @@
             return array("valid" => $valid);
         }
     
+
+
+
+
         public function handleFormData($data) {
             $validation = $this->validateFormData($data);
             if (!$validation['valid']) {
-                return $validation;
+                return 'ERROR : ' . implode($validation) ;
             }
         
-            $name = filter_var($data['name'], FILTER_SANITIZE_SPECIAL_CHARS);
-            $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-            $password = filter_var($data['password'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $name = $this->filterString($data['name']);
+            $email = $this->filterEmail($data['email']);
+            $password = $this->filterString($data['password']); // i dont't this if this is good !? :(
+            $hashed_password = $this->hashPassword($password);
+
         
             $this->admin->set('name', $name);
             $this->admin->set('email', $email);
-            $password = $data['password'];
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
             $this->admin->set('password', $hashed_password);
         
             if($data['submit'] == 'register') return $this->admin->insert();
@@ -77,6 +81,21 @@
 
         public function getAdmin($where=NULL) {
             return $this->admin->select($where);
+        }
+
+
+        private function filterString($string){
+            $string = trim($string);
+            $string =  filter_var($string , FILTER_SANITIZE_SPECIAL_CHARS);
+            return $string;
+        }
+        private function filterEmail($email){
+            $email = trim($email);
+            $email =  filter_var($email , FILTER_SANITIZE_EMAIL);
+            return $email;
+        }
+        private function hashPassword($password){
+            return password_hash($password, PASSWORD_DEFAULT);
         }
 
     }
