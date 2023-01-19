@@ -1,4 +1,5 @@
 <?php
+    require_once 'app/view/include/header.php';
     require_once './app/controller/AdmineController.php';
     
     $adminController = new AdminController();

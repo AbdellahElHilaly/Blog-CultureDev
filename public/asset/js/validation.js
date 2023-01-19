@@ -48,8 +48,8 @@ function ConfirmePassord(event) {
 
 
 function isValide(value , regex){
-    // return value.match(regex) !== null && value.length >=4 ;
-    return true;
+    return value.match(regex) !== null && value.length >=4 ;
+    // return true;
 }
 
 function validEffect(input , error) {
@@ -82,13 +82,13 @@ function invalidMessage(div , mesg){
 formElements = {name:false , email : false , password : false , confirmPassword : false };
 // formValidation();
 function formValidation(){
-    // btnSubmit = document.getElementById('btn-register-submite');
-    // let isValid = true;
-    // for(let key in formElements){
-    //     if(!formElements[key]){
-    //         isValid = false;
-    //         break;
-    //     }
-    // }
-    // btnSubmit.disabled = !isValid;
+    btnSubmit = document.getElementById('btn-register-submite');
+    let isValid = true;
+    for(let key in formElements){
+        if(!formElements[key]){
+            isValid = false;
+            break;
+        }
+    }
+    btnSubmit.disabled = !isValid;
 }

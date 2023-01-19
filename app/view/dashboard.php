@@ -1,3 +1,5 @@
+
+<?php require_once 'app/view/include/header.php';?>
 <section class="container-fluid mt-2" style="height: 90vh;">
     <div class="row">
         <div class="col-md-3" id="dashbord-overview-id">
@@ -53,11 +55,10 @@
                     <a href="#" class="text-black" id="fullscreen-icon" data-toggle="tooltip" data-placement="top" title="View Full Screen">
                         <i class="fas fa-expand"></i>
                     </a>
-                    <a href="#" class="btn btn-primary btn-sm d-block d-md-inline" id="add-article-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
+                    <a href="form" class="btn btn-primary btn-sm d-block d-md-inline" id="add-article-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
                         <i class="fas fa-plus"></i> Add Article
                     </a>
                 </div>
-
 
                 <div class="card-body d-none" id="table-categories-id">
                     <div class="table-responsive">
@@ -82,8 +83,6 @@
                         </table>
                     </div>
                 </div>
-
-
 
                 <div class="card-body d-none" id="table-developers-id">
                     <div class="table-responsive">
@@ -149,6 +148,7 @@
     </div>
 </section>
 <script src="public/asset/js/dashbord.js"></script>
+
 
 
 
