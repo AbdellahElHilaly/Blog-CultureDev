@@ -44,10 +44,6 @@
             return array("valid" => $valid);
         }
     
-
-
-
-
         public function handleFormData($data) {
             $validation = $this->validateFormData($data);
             if (!$validation['valid']) {
