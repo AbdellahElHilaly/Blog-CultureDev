@@ -30,13 +30,11 @@ function addNewForm(){
     parent.appendChild(newForm);
     document.getElementById('post-number').innerText = ++postNumber;
 
-    // let formsNumber = document.getElementsByName("post-title").length;
-    // let postEditors = document.querySelectorAll('postditor');
-    // for(i = 0; i < formsNumber; i++){
-    //     postEditors[i].id= "myTextarea-" + i;
-    //     let submitButton = postEditors[i].parentNode.parentNode.querySelector("a[onclick='sendPostData(this)']");
-    //     submitButton.setAttribute("data-index", i);
-    // }
+    let btnsSubmit = document.getElementsByName('add-post');
+    for(i = 0; i < btnsSubmit.length; i++){
+        btnsSubmit[i].value=i;
+    }
+
     startTextEditor();
 }
 

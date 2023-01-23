@@ -4,14 +4,14 @@
     
     $postController = new PostController();
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        $postController->handleFormData($_POST);
+        print_r($postController->handleFormData($_POST));
     }
 ?>
 
 <script src="https://cdn.tiny.cloud/1/sc5gr4ufscakvxl0769jshvc0883ter7sbbcmdeoqwd5oesd/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
 
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
 
     <div class="m-2">
         <div class="form-group mb-2 text-center d-flex justify-content-between align-items-center flex-wrap">
@@ -20,7 +20,7 @@
             </div>
             <div class="">
                 <a href="#" id="add-post-btn"  class="btn btn-primary mr-2" onclick="addNewForm()">Add New Post</a>
-                <button type="submit" name="add-posts" class="btn btn-secondary">Submit All</button>
+                <button type="submit" name="add-posts"  class="btn btn-secondary">Submit All</button>
             </div>
         </div>
 
@@ -29,8 +29,7 @@
                 <div class="mt-2" id="post-form-id" >
                     <div class="d-flex justify-content-between">
                         <h5 class="">Post Number: <span id="post-number">1</span></h5>
-                        <!-- <a href="#" class="btn btn-primary align-self-end" data-index="0" onclick="sendPostData(this)">Submit</a> -->
-                        <button type="submit" name="add-post[]"  class="btn btn-secondary">Submit</button>
+                        <button name="add-post" value="0" class="btn btn-secondary">Submit</button>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
@@ -42,7 +41,7 @@
                         <div class="col mb-3">
                             <p class="card-title fs-5">Post Categories</p>
                             <div class="form-group">
-                                <select class="form-control" name="post-categories[]" aria-label="Default select example">
+                                <select class="form-control" name="post-categorie_id[]" aria-label="Default select example">
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -65,12 +64,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 </form>
 
 <script src="public/asset/js/form.js"></script>
