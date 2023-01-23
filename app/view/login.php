@@ -1,5 +1,5 @@
-<form action="" method="GET">
-    <section class="vh-100" style="background-color: #eee;">
+<form action="" method="GET" >
+    <section class="" >
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
@@ -56,3 +56,5 @@
     </div>
     </section>
 </form>
+<script src="public/asset/js/validation.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

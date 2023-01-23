@@ -8,10 +8,6 @@ class PostController {
     }
 
     public function handleFormData($data) {
-        echo "<pre>";
-        print_r($data);
-        echo "<pre>";
-        die();
         if (isset($data['add-posts'])) {
             return $this->addPosts($data);
         } else if (isset($data['add-post'])) {
@@ -19,14 +15,15 @@ class PostController {
         }
     }
 
-    public function handleFormImage($image) {
-        die($image);
+
+    public function handleFormImage($image , $index) {
         if (!empty($image)) {
-            $fileName = $image['name'];
-            $fileTmpName = $image['tmp_name'];
-            $fileSize = $image['size'];
-            $fileError = $image['error'];
-            $fileType = $image['type'];
+            $fileName = $image['name'][$index];
+            $fileTmpName = $image['tmp_name'][$index];
+            $fileSize = $image['size'][$index];
+            $fileError = $image['error'][$index];
+            $fileType = $image['type'][$index];
+
             
             $fileExt = explode('.', $fileName);
             $fileActualExt = strtolower(end($fileExt));
@@ -37,7 +34,7 @@ class PostController {
                 if ($fileError === 0) {
                     if ($fileSize < 1000000) {
                         $fileNameNew = uniqid('', true).".".$fileActualExt;
-                        $fileDestination = './../../public/asset/image'.$fileNameNew;
+                        $fileDestination = __DIR__ . '/../../public/asset/image/'.$fileNameNew;
                         move_uploaded_file($fileTmpName, $fileDestination);
                         return ["success" , $fileNameNew];
                     } else {
@@ -51,6 +48,8 @@ class PostController {
             }
         }
     }
+
+
     private function addPosts($data) {
         for ($i = 0; $i < count($data['post-title']); $i++) {
             $result = $this->addPost($data , $i);
@@ -59,8 +58,10 @@ class PostController {
         return 1;
     }
 
+
     private function addPost($data , $index) {
-        $imageResult = $this->handleFormImage($data['post-image'][$index]);
+        $imageResult = $this->handleFormImage($_FILES["post-image"] , $index);
+        
         if($imageResult[0] == 'error'){
             return $imageResult[1];
         }
@@ -71,7 +72,13 @@ class PostController {
         $this->post->set('category_id', $data['post-categorie_id'][ $index]);
         return $this->post->insert();
     }
-    
+
+
+    public function getPosts(){
+        return $this->post->select();
+    }
+
+
 }
 
 

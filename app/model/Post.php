@@ -6,8 +6,9 @@ class Post extends MySQLDatabase {
     private $article;
     private $admin_id;
     private $category_id;
+    private $datetime;
 
-    public function __construct($title=NULL, $image=NULL, $article=NULL, $admin_id=NULL, $category_id=NULL) {
+    public function __construct($title=NULL, $image=NULL, $article=NULL, $admin_id=NULL, $category_id=NULL , $datetime=NULL) {
         parent::__construct();
         $this->table = 'post';
         $this->title = $title;
@@ -21,7 +22,8 @@ class Post extends MySQLDatabase {
             'image' => $this->image,
             'article' => $this->article,
             'admin_id' => $this->admin_id,
-            'category_id' => $this->category_id
+            'category_id' => $this->category_id,
+            'datetime' => $this->datetime
         ];
     }
 

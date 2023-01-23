@@ -36,6 +36,7 @@ function displayTabel(index){
     developersTabel = document.getElementById('table-developers-id');
     postesTabel = document.getElementById('table-posts-id');
     categoriesTabel = document.getElementById('table-categories-id');
+    tabelTitel = document.getElementById('tabel-title');
 
     if(index == 1){
         developersTabel.classList.remove("d-block");
@@ -44,6 +45,7 @@ function displayTabel(index){
         postesTabel.classList.add("d-block");
         categoriesTabel.classList.remove("d-block");
         categoriesTabel.classList.add("d-none");
+        tabelTitel.innerHTML = "Postes";
     }
     else  if(index == 2){
         developersTabel.classList.remove("d-none");
@@ -52,6 +54,7 @@ function displayTabel(index){
         postesTabel.classList.add("d-none");
         categoriesTabel.classList.remove("d-block");
         categoriesTabel.classList.add("d-none");
+        tabelTitel.innerHTML = "Developers";
     }
     else  if(index == 3){
         developersTabel.classList.remove("d-block");
@@ -60,6 +63,7 @@ function displayTabel(index){
         postesTabel.classList.add("d-none");
         categoriesTabel.classList.remove("d-none");
         categoriesTabel.classList.add("d-block");
+        tabelTitel.innerHTML = "Categories";
     }
 }
 

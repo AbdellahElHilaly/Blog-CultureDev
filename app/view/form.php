@@ -52,7 +52,7 @@
                         <div class="form-group mb-3">
                             <div class="custom-file">
                                 <p class="card-title fs-5">Image</p>
-                                <input type="file" name="post-image[]" class="custom-file-input" id="inputGroupFile01">
+                                <input type="file"  name="post-image[]" class="custom-file-input" id="inputGroupFile01">
                             </div>
                         </div>
                         <div class="form-group">
