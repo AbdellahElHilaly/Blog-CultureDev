@@ -1,6 +1,11 @@
 <?php
     require_once 'app/view/include/header.php';
     $postController = new PostController();
+    
+    $adminController = new AdminController();
+    if(!$adminController->getAdmin()) die("error : database admine");
+
+    
 ?>
 
 
@@ -56,12 +61,12 @@
         <div class="col-md-9 " id="dashbord-body-id">
             <div class="card">
                 <div class="card-header d-flex justify-content-between bg-info">
-                    <h5 id="tabel-title" class="card-title">Articles</h5>
+                    <h5 id="tabel-title" class="card-title">Developers</h5>
                     <a href="#" class="text-black" id="fullscreen-icon" data-toggle="tooltip" data-placement="top" title="View Full Screen">
                         <i class="fas fa-expand"></i>
                     </a>
-                    <a href="form" class="btn btn-primary btn-sm d-block d-md-inline" id="add-article-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
-                        <i class="fas fa-plus"></i> Add Article
+                    <a href="admin-form" class="btn btn-primary btn-sm d-block d-md-inline" id="add-data-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
+                        <i class="fas fa-plus"></i> Add
                     </a>
                 </div>
 
@@ -79,6 +84,7 @@
 
                 <div class="card-body d-none" id="table-categories-id">
                     <div class="table-responsive">
+                    <div style="overflow-y: scroll; height:75vh;">
                         <table class="table table-striped table-hover">
                             <thead class="thead-dark">
                                 <tr>
@@ -92,12 +98,25 @@
                                     <th scope="row">1</th>
                                     <td>Cell</td>
                                     <td class="d-flex">
-                                        <a href="#" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
-                                        <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                        <form action="category-form" method="post">
+                                            <input type="hidden" name="id" value="1">
+                                            <input type="hidden" name="action" value="edit">
+                                            <button type="submit" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </form>
+                                        <form action="" method="post">
+                                            <input type="hidden" name="id" value="1">
+                                            <input type="hidden" name="action" value="delete">
+                                            <button type="submit" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
                     </div>
                 </div>
 
@@ -117,38 +136,40 @@
                 
                 <div class="card-body d-none"  id="table-posts-id">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">image</th>
-                                    <th scope="col">title</th>
-                                    <th scope="col">article</th>
-                                    <th scope="col">category</th>
-                                    <th scope="col">admin</th>
-                                    <th scope="col">date_time</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($postController->getPosts() as $post): ?>
-                                    <tr >
-                                        <th scope="row"><?= $post['id']; ?></th>
-                                        <td><img src="public/asset/image/<?= $post['image']; ?>" class="img-thumbnail" alt="image" width="50" height="50"></td>
-                                        <td><?= $post['title']; ?></td>
-                                        <td><?= strip_tags($post['title']); ?></td>
-                                        <td><?= $post['category_id']; ?></td>
-                                        <td><?= $post['admin_id']; ?></td>
-                                        <td><?= $post['datetime']; ?></td>
-                                        <td class="" >
-                                            <a href="#" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
-                                            <a href="singlpost" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
-                                            <a href="#" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
-                                        </td>
+                        <div style="overflow-y: scroll; height:75vh;">
+                            <table class="table table-striped table-hover">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">id</th>
+                                        <th scope="col">image</th>
+                                        <th scope="col">title</th>
+                                        <th scope="col">article</th>
+                                        <th scope="col">category</th>
+                                        <th scope="col">admin</th>
+                                        <th scope="col">date_time</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($postController->getPosts() as $post): ?>
+                                        <tr >
+                                            <th scope="row"><?= $post['id']; ?></th>
+                                            <td><img src="public/asset/image/<?= $post['image']; ?>" class="img-thumbnail" alt="image" width="50" height="50"></td>
+                                            <td><?= $post['title']; ?></td>
+                                            <td><?= substr(strip_tags($post['article']), 0, 50) . '...'; ?></td>
+                                            <td><?= $post['category_id']; ?></td>
+                                            <td><?= $post['admin_id']; ?></td>
+                                            <td><?= $post['datetime']; ?></td>
+                                            <td class="" >
+                                                <a href="post-form&id=1&action=edit-post" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                                <a href="singlpost" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
+                                                <a href="dashboard&id=1&action=edit" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -164,6 +185,7 @@
 
                 <div class="card-body" id="table-developers-id">
                     <div class="table-responsive">
+                    <div style="overflow-y: scroll; height:75vh;">
                         <table class="table table-striped table-hover">
                             <thead class="thead-dark">
                                 <tr>
@@ -175,17 +197,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Cell</td>
-                                    <td>Cell</td>
-                                    <td>Cell</td>
-                                    <td >
-                                        <a href="#" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
-                                    </td>
-                                </tr>
+                                <?php foreach($adminController->getAdmin() as $developer): ?>
+                                    <tr>
+                                        <th scope="row"><?= $developer['id'] ?></th>
+                                        <td><?= $developer['name'] ?></td>
+                                        <td><?= $developer['email'] ?></td>
+                                        <td>no data ! </td> 
+                                        <td >
+                                            <a href="#" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
+                    </div>
                     </div>
                 </div>
 

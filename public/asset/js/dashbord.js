@@ -33,6 +33,8 @@ function fullScreen(){
 
 
 function displayTabel(index){
+    let addDataIcon = document.getElementById('add-data-icon');
+
     developersTabel = document.getElementById('table-developers-id');
     postesTabel = document.getElementById('table-posts-id');
     categoriesTabel = document.getElementById('table-categories-id');
@@ -46,6 +48,7 @@ function displayTabel(index){
         categoriesTabel.classList.remove("d-block");
         categoriesTabel.classList.add("d-none");
         tabelTitel.innerHTML = "Postes";
+        addDataIcon.href = 'post-form';
     }
     else  if(index == 2){
         developersTabel.classList.remove("d-none");
@@ -55,6 +58,7 @@ function displayTabel(index){
         categoriesTabel.classList.remove("d-block");
         categoriesTabel.classList.add("d-none");
         tabelTitel.innerHTML = "Developers";
+        addDataIcon.href = 'admin-form';
     }
     else  if(index == 3){
         developersTabel.classList.remove("d-block");
@@ -64,6 +68,7 @@ function displayTabel(index){
         categoriesTabel.classList.remove("d-none");
         categoriesTabel.classList.add("d-block");
         tabelTitel.innerHTML = "Categories";
+        addDataIcon.href = 'category-form';
     }
 }
 

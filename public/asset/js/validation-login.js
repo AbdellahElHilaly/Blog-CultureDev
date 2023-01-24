@@ -11,12 +11,6 @@ function validation(event , regex ,  error ){
     }
 }
 
-function valideName(event) {
-    error = "Name must have 4+ characters";
-    regex = /^[a-zA-Z]+$/
-    formElements.name = validation(event , regex ,  error );
-    formValidation();
-}
 function valideEmail(event){
     error = "example@gmail.com";
     regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/
@@ -32,24 +26,9 @@ function validePassword(event){
     formValidation();
 }
 
-function ConfirmePassord(event) {
-    input = event.target;
-    confPassVal = input.value;
-    if (passVal == confPassVal || 1) {
-        validEffect(input, 'Matching Passwords');
-        formElements.confirmPassword = true;
-    }
-    else {
-        invalidEffect(input, 'Different Passwords');
-        formElements.confirmPassword = false;
-    }
-    formValidation();
-}
-
 
 function isValide(value , regex){
     return value.match(regex) !== null && value.length >=4 ;
-    // return true;
 }
 
 function validEffect(input , error) {
@@ -79,10 +58,10 @@ function invalidMessage(div , mesg){
     div.innerText = mesg;
 }
 
-formElements = {name:false , email : false , password : false , confirmPassword : false };
-// formValidation();
+formElements = {email : false , password : false };
+formValidation();
 function formValidation(){
-    btnSubmit = document.getElementById('btn-register-submite');
+    btnSubmit = document.getElementById('btn-login-submite');
     let isValid = true;
     for(let key in formElements){
         if(!formElements[key]){

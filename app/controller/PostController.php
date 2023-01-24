@@ -70,6 +70,7 @@ class PostController {
         $this->post->set('article', $data['post-article'][ $index]);
         $this->post->set('admin_id', 11);
         $this->post->set('category_id', $data['post-categorie_id'][ $index]);
+        $this->post->set('datetime',  date("Y-m-d H:i:s"));
         return $this->post->insert();
     }
 

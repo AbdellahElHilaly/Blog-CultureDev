@@ -15,28 +15,29 @@
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                        <input type="email" id="form3Example3c" class="form-control" />
-                        <label class="form-label" for="form3Example3c">Your Email</label>
+                            <input onkeyup="valideEmail(event)"  name="email" type="email" id="form3Example3c" class="form-control" />
+                            <label class="form-label" for="form3Example3c">Your Email</label>
+                            <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
                         </div>
                     </div>
 
                     <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div class="form-outline flex-fill mb-0">
-                        <input type="password" id="form3Example4c" class="form-control" />
+                        <input onkeyup="validePassword(event)" name="password" type="password" id="form3Example4c" class="form-control  " />
                         <label class="form-label" for="form3Example4c">Password</label>
+                        <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
                         </div>
                     </div>
 
                     <div class="form-check d-flex justify-content-center mb-5">
-                        <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
                         <label class="form-check-label" for="form2Example3">
                         Don't have any account yet? <a href="register">Sign Up</a>
                         </label>
                     </div>
 
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                        <button type="submit" name="page" value="home" class="btn btn-primary btn-lg">Submit</button>
+                        <button type="submit" id="btn-login-submite" name="page" value="home" class="btn btn-primary btn-lg">Submit</button>
                     </div>
 
                     </form>
@@ -56,5 +57,5 @@
     </div>
     </section>
 </form>
-<script src="public/asset/js/validation.js"></script>
+<script src="public/asset/js/validation-login.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

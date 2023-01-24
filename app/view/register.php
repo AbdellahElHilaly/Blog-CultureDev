@@ -1,9 +1,7 @@
 <?php
     require_once 'app/view/include/header.php';
-    require_once './app/controller/AdmineController.php';
-    
     $adminController = new AdminController();
-    ?>
+?>
     
 
 
@@ -99,7 +97,7 @@
     </div>
 </section>
 
-<script src="public/asset/js/validation.js"></script>
+<script src="public/asset/js/validation-register.js"></script>
 <!-- MDB -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
 

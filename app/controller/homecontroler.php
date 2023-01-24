@@ -1,6 +1,6 @@
 <?php
     class HomeController {
-        private $validPages = ['dashboard', 'form', 'home', 'register' , 'login' , 'singlpost'];
+        private $validPages = ['dashboard', 'post-form','category-form','admin-form', 'home', 'register' , 'login' , 'singlpost'];
         private $errorPages = ['404', '500'];
 
         public function displayPage() {

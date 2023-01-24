@@ -36,7 +36,8 @@ class Post extends MySQLDatabase {
                 'image' => $this->image,
                 'article' => $this->article,
                 'admin_id' => $this->admin_id,
-                'category_id' => $this->category_id
+                'category_id' => $this->category_id,
+                'datetime' => $this->datetime
             ];
         }
     }

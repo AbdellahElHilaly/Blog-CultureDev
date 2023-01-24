@@ -78,7 +78,6 @@
                     array_keys($this->data)
                 ));
                 $sql = "UPDATE $this->table SET $set $where";
-                print_r($sql);
                 $stmt = $this->pdo->prepare($sql);
                 foreach($this->data as $key => $value) {
                     $stmt->bindValue(':' . $key, $value);
