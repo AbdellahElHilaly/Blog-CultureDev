@@ -11,7 +11,11 @@ class PostController {
         if (isset($data['add-posts'])) {
             return $this->addPosts($data);
         } else if (isset($data['add-post'])) {
-            return $this->addPost($data  , $data['add-post']);
+            return $this->addPost($data  , 0);
+        }else if (isset($data['edit-post'])) {
+            return $this->updatePost($data  , $data['edit-post']);
+        }else if (isset($data['delete-post'])) {
+            return $this->deletePost($data['delete-post']);
         }
     }
 
@@ -68,16 +72,47 @@ class PostController {
         $this->post->set('title', $data['post-title'][ $index]);
         $this->post->set('image' , $imageResult[1]);
         $this->post->set('article', $data['post-article'][ $index]);
-        $this->post->set('admin_id', 11);
+        $this->post->set('admin_id', 40);
         $this->post->set('category_id', $data['post-categorie_id'][ $index]);
         $this->post->set('datetime',  date("Y-m-d H:i:s"));
         return $this->post->insert();
     }
+    private function updatePost($data , $id) {
+        $imageResult = $this->handleFormImage($_FILES["post-image"] , 0);
+        
+        if($imageResult[0] == 'error'){
+            return $imageResult[1];
+        }
+        $this->post->set('title', $data['post-title'][0]);
+        $this->post->set('image' , $imageResult[1]);
+        $this->post->set('article', $data['post-article'][0]);
+        $this->post->set('admin_id', '40');
+        $this->post->set('category_id', $data['post-categorie_id'][0]);
+        $this->post->set('datetime',  date("Y-m-d H:i:s"));
+        
+        return $this->post->update("WHERE post_id = ".$id);
+    }
 
 
     public function getPosts(){
-        return $this->post->select();
+        return $this->post->select();    
     }
+    public function getJoinPosts(){
+        $array = array("post.category_id" =>"category.id", "post.admin_id" => "admin.id");
+        return $this->post->join("category", "admin", $array);
+    }
+
+    public function getPost($id){
+        return $this->post->select("WHERE post_id = ".$id);
+    }
+    public function deletePost($id){
+        return $this->post->delete("WHERE post_id = ".$id);
+    }
+
+
+
+    
+    
 
 
 }

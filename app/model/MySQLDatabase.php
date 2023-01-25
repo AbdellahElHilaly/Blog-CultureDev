@@ -51,6 +51,30 @@
             }
         }
         
+        public function join() {
+            $args = func_get_args();  //get args in forme  array 
+            $tables = array_slice($args, 0, -1); //filter last element (remove)
+            $on = array_slice($args, -1)[0]; //filter all element without the last 
+
+            $sql = "SELECT * FROM $this->table INNER JOIN ";
+            $count = count($on);
+            $i = 1;
+            foreach($on as $key => $value) {
+                $sql .= $tables[$i - 1];
+                $sql .= " ON $key = $value";
+                if($i < $count) {
+                    $sql .= " INNER JOIN ";
+                }
+                $i++;
+            }
+            
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute();
+            $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $data;
+        }
+                
+        
 
         
         
@@ -78,6 +102,7 @@
                     array_keys($this->data)
                 ));
                 $sql = "UPDATE $this->table SET $set $where";
+                
                 $stmt = $this->pdo->prepare($sql);
                 foreach($this->data as $key => $value) {
                     $stmt->bindValue(':' . $key, $value);

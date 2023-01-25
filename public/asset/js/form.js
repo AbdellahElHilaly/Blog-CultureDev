@@ -27,8 +27,10 @@ function addNewForm(){
     stopTextEditor();
     let parent = document.getElementById('post-form-parent-id');
     let newForm = document.getElementById('post-form-id').cloneNode(true);
+    newForm.innerHTML = `<a href="#" class="btn btn-danger mr-2" onclick="event.preventDefault(); parentNode.remove()">remove</a>` + newForm.innerHTML;
+
     parent.appendChild(newForm);
-    document.getElementById('post-number').innerText = ++postNumber;
+    newForm.querySelector('.post-number').innerText = ++postNumber;
 
     let btnsSubmit = document.getElementsByName('add-post');
     for(i = 0; i < btnsSubmit.length; i++){

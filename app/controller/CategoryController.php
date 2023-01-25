@@ -7,9 +7,9 @@
             $this->category = new Category();
         }
         
-        public function getCategories($data=NULL) {
-            if($data == NULL)  return $this->category->select();
-            return $this->category->select("WHERE id = ". $data['id']);
+        public function getCategories($id=NULL) {
+            if($id == NULL)  return $this->category->select();
+            return $this->category->select("WHERE id = ". $id);
         }
         
         private function addCategory($name) {
@@ -23,14 +23,13 @@
         }
         
         private function deleteCategory($id) {
-            $this->category->set('id', $id);
-            return $this->category->delete();
+            return $this->category->delete("WHERE id = ".$id);
         }
 
         public function handleFormData($data){
             if(isset($data['submite'])  && $data['submite'] == 'add' ) return $this->addCategory($data['category-name']);
             elseif(isset($data['submite'])  && $data['submite'] == 'edit') return $this->editCategory($data);
-            elseif(isset($data['action'])  && $data['action'] == 'edit') return $this->getCategories($data)[0]['name'];
+            elseif(isset($data['delete-category'])) return $this->deleteCategory($data['delete-category']);
 
             // echo "<pre>";
             // print_r($data);

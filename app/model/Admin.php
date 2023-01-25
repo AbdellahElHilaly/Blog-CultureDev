@@ -13,7 +13,7 @@
             $this->password = $password;
 
             $this->data = [
-                'name'      =>  $this->name,
+                'admin_name'      =>  $this->name,
                 'email'        =>  $this->email,
                 'password'  =>  $this->password   
             ];
@@ -24,7 +24,7 @@
                 $this->$property = $value;
 
                 $this->data = [
-                    'name'      =>  $this->name,
+                    'admin_name'      =>  $this->name,
                     'email'        =>  $this->email,
                     'password'  =>  $this->password   
                 ];

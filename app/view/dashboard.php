@@ -1,11 +1,14 @@
 <?php
     require_once 'app/view/include/header.php';
+
     $postController = new PostController();
+    if(isset($_GET['delete-post'])) print_r($postController->handleFormData($_GET)); 
     
     $adminController = new AdminController();
-    if(!$adminController->getAdmin()) die("error : database admine");
 
-    
+    $category = new CategoryController();
+    if(isset($_GET['delete-category'])) print_r($category->handleFormData($_GET));  
+
 ?>
 
 
@@ -61,11 +64,11 @@
         <div class="col-md-9 " id="dashbord-body-id">
             <div class="card">
                 <div class="card-header d-flex justify-content-between bg-info">
-                    <h5 id="tabel-title" class="card-title">Developers</h5>
+                    <h5 id="tabel-title" class="card-title">Postes</h5>
                     <a href="#" class="text-black" id="fullscreen-icon" data-toggle="tooltip" data-placement="top" title="View Full Screen">
                         <i class="fas fa-expand"></i>
                     </a>
-                    <a href="admin-form" class="btn btn-primary btn-sm d-block d-md-inline" id="add-data-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
+                    <a href="post-form" class="btn btn-primary btn-sm d-block d-md-inline" id="add-data-icon" data-toggle="tooltip" data-placement="top" title="Add Article">
                         <i class="fas fa-plus"></i> Add
                     </a>
                 </div>
@@ -94,26 +97,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Cell</td>
-                                    <td class="d-flex">
-                                        <form action="category-form" method="post">
-                                            <input type="hidden" name="id" value="1">
-                                            <input type="hidden" name="action" value="edit">
-                                            <button type="submit" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <?php foreach($category->getCategories() as $category): ?>
+                                    <tr>
+                                        <th scope="row"><?= $category['id'] ?></th>
+                                        <td><?= $category['name'] ?></td>
+                                        <td class="d-flex">
+                                            <a href="category-form&edit-category=<?=$category['id']?>" type="submit" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit">
                                                 <i class="fas fa-edit"></i>
-                                            </button>
-                                        </form>
-                                        <form action="" method="post">
-                                            <input type="hidden" name="id" value="1">
-                                            <input type="hidden" name="action" value="delete">
-                                            <button type="submit" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                            </a>
+                                            <a href="dashboard&delete-category=<?=$category['id']?>" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -134,7 +129,7 @@
 
 
                 
-                <div class="card-body d-none"  id="table-posts-id">
+                <div class="card-body"  id="table-posts-id">
                     <div class="table-responsive">
                         <div style="overflow-y: scroll; height:75vh;">
                             <table class="table table-striped table-hover">
@@ -151,19 +146,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php foreach($postController->getPosts() as $post): ?>
+                                    <?php foreach($postController->getJoinPosts() as $post): ?>
                                         <tr >
-                                            <th scope="row"><?= $post['id']; ?></th>
+                                            <th scope="row"><?=$post['post_id'];?></th>
                                             <td><img src="public/asset/image/<?= $post['image']; ?>" class="img-thumbnail" alt="image" width="50" height="50"></td>
                                             <td><?= $post['title']; ?></td>
                                             <td><?= substr(strip_tags($post['article']), 0, 50) . '...'; ?></td>
-                                            <td><?= $post['category_id']; ?></td>
-                                            <td><?= $post['admin_id']; ?></td>
+                                            <td><?= $post['category_name']; ?></td>
+                                            <td><?= $post['admin_name']; ?></td>
                                             <td><?= $post['datetime']; ?></td>
                                             <td class="" >
-                                                <a href="post-form&id=1&action=edit-post" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                                <a href="post-form&id=<?=$post['post_id'];?>&action=edit-post" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
                                                 <a href="singlpost" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
-                                                <a href="dashboard&id=1&action=edit" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                                <a href="dashboard&delete-post=<?=$post['post_id']?>" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -183,7 +178,7 @@
 
 
 
-                <div class="card-body" id="table-developers-id">
+                <div class="card-body d-none" id="table-developers-id">
                     <div class="table-responsive">
                     <div style="overflow-y: scroll; height:75vh;">
                         <table class="table table-striped table-hover">

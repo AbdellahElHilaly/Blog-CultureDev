@@ -11,14 +11,17 @@
             $error_msg = "";
 
             //Validate name
-            if (!preg_match("/^[a-zA-Z ]*$/", $data['name'])) {
-                $valid = false;
-                $error_msg .= "Invalid name. Only letters and white space allowed. ";
+            if(isset($data['name'])){
+                if (!preg_match("/^[a-zA-Z ]*$/", $data['name'])) {
+                    $valid = false;
+                    $error_msg .= "Invalid name. Only letters and white space allowed. ";
+                }
+                else if(strlen($data['name']) < 4) {
+                    $valid = false;
+                    $error_msg .= "Name must have at least 4 characters. ";
+                }
             }
-            else if(strlen($data['name']) < 4) {
-                $valid = false;
-                $error_msg .= "Name must have at least 4 characters. ";
-            }
+            
 
             //Validate email
             if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
@@ -32,14 +35,17 @@
                 $error_msg .= "Invalid password. 8+ characters, 1 uppercase, 1 lowercase, 1 digit, 1 special character required. ";
             }
             //confirme password
-            if ($data['password'] != $data['conf-password']) {
-                $valid = false;
-                $error_msg .= "Different Passwords. ";
+            if(isset($data['conf-password'])){
+                if ($data['password'] != $data['conf-password']) {
+                    $valid = false;
+                    $error_msg .= "Different Passwords. ";
+                }
+    
+                if (!$valid) {
+                    return array("valid" => $valid, "error_msg" => $error_msg);
+                }
             }
-
-            if (!$valid) {
-                return array("valid" => $valid, "error_msg" => $error_msg);
-            }
+            
 
             return array("valid" => $valid);
         }
@@ -50,17 +56,18 @@
                 return 'ERROR : ' . implode($validation) ;
             }
         
-            $name = $this->filterString($data['name']);
+            if(isset($data['name'])) $name = $this->filterString($data['name']);
             $email = $this->filterEmail($data['email']);
             $password = $this->filterString($data['password']); // i dont't this if this is good !? :(
             $hashed_password = $this->hashPassword($password);
 
         
-            $this->admin->set('name', $name);
+            if(isset($data['name'])) $this->admin->set('name', $name);
             $this->admin->set('email', $email);
             $this->admin->set('password', $hashed_password);
         
             if($data['submit'] == 'register') return $this->admin->insert();
+            elseif($data['submit'] == 'login') return $this->login();
         }
 
         public function insertAdmin() {
@@ -93,6 +100,15 @@
         private function hashPassword($password){
             return password_hash($password, PASSWORD_DEFAULT);
         }
+
+
+        public function login() {
+            $email = $this->admin->get('email');
+            $password = $this->admin->get('password');
+        
+            return $this->admin;
+        }
+        
 
     }
 

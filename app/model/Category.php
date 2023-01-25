@@ -9,7 +9,7 @@
             $this->name = $name;
 
             $this->data = [
-                'name' => $this->name
+                'category_name' => $this->name
             ];
         }
 
@@ -18,7 +18,7 @@
                 $this->$property = $value;
 
                 $this->data = [
-                    'name' => $this->name
+                    'category_name' => $this->name
                 ];
             }
         }
