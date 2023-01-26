@@ -1,0 +1,7 @@
+Options All -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !\.js$
+RewriteCond %{REQUEST_URI} !\.(jpe?g|gif|bmp|png|tiff|css|js)$ [NC]
+RewriteRule ^(.*)$ index.php?page=$1 [NC,L,QSA]
+
+
