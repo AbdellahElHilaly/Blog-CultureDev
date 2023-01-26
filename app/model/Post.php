@@ -25,6 +25,11 @@ class Post extends MySQLDatabase {
             'category_id' => $this->category_id,
             'datetime' => $this->datetime
         ];
+
+        $this->dataJoin = [
+            'category' => 'category_id',
+            'admin' => 'admin_id'
+        ];
     }
 
     public function set($property, $value) {

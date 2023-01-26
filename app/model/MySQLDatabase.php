@@ -11,7 +11,8 @@
 
         public $id;
         public $table; 
-        public $data;
+        public $data = array();
+        public $dataJoin = array();
 
 
         public function __construct($host = null, $username = null, $password = null, $dbname = null) {
@@ -49,7 +50,27 @@
                 return false;
             }
         }
-        
+        public function join2(){
+            $sql = "SELECT * FROM " . $this->table ;
+
+            
+            // $columns = implode(array_values($this->dataJoin), array_keys($this->dataJoin));
+
+
+            for($i=0 ;  $i< count($this->dataJoin) ; $i++){
+                
+                $sql .=   "INNER JOIN " . array_keys($this->dataJoin)[$i] . "ON";
+                print_r(array_values($this->dataJoin)[$i]);
+
+                echo "<br> ";    
+
+
+            }
+
+    
+            // print_r($sql);
+            die();
+        }
         public function join() {
             $args = func_get_args();  //get args in forme  array 
             $tables = array_slice($args, 0, -1); //filter last element (remove)

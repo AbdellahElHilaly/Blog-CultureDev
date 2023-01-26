@@ -8,6 +8,7 @@ class PostController {
     }
 
     public function handleFormData($data) {
+        return $this->getPostJoin();
         if (isset($data['add-posts'])) {
             return $this->addPosts($data);
         } else if (isset($data['add-post'])) {
@@ -107,6 +108,11 @@ class PostController {
     }
     public function deletePost($id){
         return $this->post->delete("WHERE post_id = ".$id);
+    }
+
+
+    private function getPostJoin(){
+        return $this->post->join2();
     }
 
 
