@@ -9,3 +9,16 @@
     $home->displayPage();
     // require_once 'app/view/include/footer.php'; 
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+

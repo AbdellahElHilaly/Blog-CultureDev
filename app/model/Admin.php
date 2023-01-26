@@ -1,6 +1,6 @@
 <?php
 
-    class Admin extends MySQLDatabase {
+    class  Admin extends MySQLDatabase {
         private $name;
         private $email;
         private $password;

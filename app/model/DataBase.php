@@ -6,7 +6,7 @@ interface Database {
     public function update($where=NULL);
     public function delete($where=NULL);
     public function isExist($property);
-    // public function join();
+    public function join() ;
 }
 
 ?>

@@ -51,6 +51,10 @@
         }
     
         public function handleFormData($data) {
+
+            if(isset($data['logout'])) return $this->logout();
+            
+            
             $validation = $this->validateFormData($data);
             if (!$validation['valid']) {
                 return 'ERROR : ' . implode($validation) ;
@@ -58,16 +62,15 @@
         
             if(isset($data['name'])) $name = $this->filterString($data['name']);
             $email = $this->filterEmail($data['email']);
-            $password = $this->filterString($data['password']); // i dont't this if this is good !? :(
+            $password = $this->filterString($data['password']); // i dont't know this if is good !? :(
             $hashed_password = $this->hashPassword($password);
 
-        
             if(isset($data['name'])) $this->admin->set('name', $name);
             $this->admin->set('email', $email);
             $this->admin->set('password', $hashed_password);
         
             if($data['submit'] == 'register') return $this->admin->insert();
-            elseif($data['submit'] == 'login') return $this->login();
+            elseif($data['submit'] == 'login') return $this->login($data['password']);
         }
 
         public function insertAdmin() {
@@ -102,12 +105,35 @@
         }
 
 
-        public function login() {
+        public function login($password) {
             $email = $this->admin->get('email');
-            $password = $this->admin->get('password');
+
         
-            return $this->admin;
+            if (!$this->admin->isExist('email')) return "Email not found.";
+        
+            $tempAdmin = $this->admin->select("WHERE email = '" . $email . "'")[0];
+        
+            if (!password_verify($password, $tempAdmin['password'])) return "Incorrect password.";
+
+              // Start the session
+            session_start();
+
+            // Store the admin's id and name in the session
+            $_SESSION['admin_id'] = $tempAdmin['id'];
+            $_SESSION['admin_name'] = $tempAdmin['admin_name'];
+
+
+        
+            return 1;
         }
+
+        public function logout() {
+            session_destroy(); // destroy the current session
+            header("Location: home"); // redirect to login page
+            exit;
+        }
+        
+        
         
 
     }

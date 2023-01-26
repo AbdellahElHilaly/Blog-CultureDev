@@ -14,7 +14,7 @@ require_once 'app/view/include/header.php';
         $id =  $_GET['edit-category'];
         $action = "edit";
 
-        $categoryname = $cateroryController->getCategories($id)[0]['name'];
+        $categoryname = $cateroryController->getCategories($id)[0]['category_name'];
     }
     
 ?>

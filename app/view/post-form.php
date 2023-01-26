@@ -3,6 +3,8 @@
 
 <?php
     require_once 'app/view/include/header.php';
+
+    session_start();
     
     $postController = new PostController();
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -21,7 +23,7 @@
             $id = $_GET['id'];
             
             $postController->getPost($id);
-            $post = $postController->getPost($id)[0];
+            $post = $postController->getPost($id);
         }
         else {$display = "block"; $title = "Add your posts here"; $action = "add-post";}
     }

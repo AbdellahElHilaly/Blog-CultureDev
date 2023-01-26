@@ -1,13 +1,12 @@
 <?php
     require_once 'app/view/include/header.php';
     $adminController = new AdminController();
-
 ?>
     
 
 
 
-<section class="" >
+<section class="mt-2" >
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
@@ -16,60 +15,62 @@
 
             <?php if($_SERVER['REQUEST_METHOD'] === 'POST'):?>
                 <?php if($adminController->handleFormData($_POST)!=1):?>
-                    <?php $color='danger' ; $message = $adminController->handleFormData($_POST) ;
+                    <?php $color='danger' ; $message = $adminController->handleFormData($_POST);
                     include_once 'app/view/include/alert.php'; ?>
                 <?php else:?>
-                    <?php $color='success' ; $message = 'Success' ;
-                    include_once 'app/view/include/alert.php'; ?>
+                    <?php $color='success' ; $message = "welcome " . $_SESSION['admin_name'] ;
+                    include_once 'app/view/include/alert.php';
+                    header("Refresh: 0.5; url=dashboard");
+                    ?>
                 <?php endif;?>
             <?php endif;?>
 
 
             <div class="card-body p-md-5">
                 <div class="row justify-content-center">
-                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <div class="col-md-12 col-lg-8 col-xl-6 order-2 order-lg-1">
 
-                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
+                        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign in</p>
 
-                    <form action="" method="POST" class="mx-1 mx-md-4">
+                        <form action="" method="POST" class="mx-1 mx-md-4">
 
-                        <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                                <input onkeyup="valideEmail(event)"  name="email" type="email" id="form3Example3c" class="form-control" />
-                                <label class="form-label" for="form3Example3c">Your Email</label>
+                            <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-0">
+                                    <input onkeyup="valideEmail(event)"  name="email" type="email" id="form3Example3c" class="form-control" />
+                                    <label class="form-label" for="form3Example3c">Your Email</label>
+                                    <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-row align-items-center mb-4">
+                                <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                                <div class="form-outline flex-fill mb-0">
+                                <input onkeyup="validePassword(event)" name="password" type="password" id="form3Example4c" class="form-control  " />
+                                <label class="form-label" for="form3Example4c">Password</label>
                                 <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="d-flex flex-row align-items-center mb-4">
-                            <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
-                            <div class="form-outline flex-fill mb-0">
-                            <input onkeyup="validePassword(event)" name="password" type="password" id="form3Example4c" class="form-control  " />
-                            <label class="form-label" for="form3Example4c">Password</label>
-                            <div class="invalid-feedback" style="margin:-25px  5px  ;"></div>
+                            <div class="form-check d-flex justify-content-center mb-5">
+                                <label class="form-check-label" for="form2Example3">
+                                Don't have any account yet? <a href="register">Sign Up</a>
+                                </label>
                             </div>
-                        </div>
 
-                        <div class="form-check d-flex justify-content-center mb-5">
-                            <label class="form-check-label" for="form2Example3">
-                            Don't have any account yet? <a href="register">Sign Up</a>
-                            </label>
-                        </div>
+                            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                <button type="submit" id="btn-login-submite" name="submit" value="login" class="btn btn-primary btn-lg">Submit</button>
+                            </div>
 
-                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                            <button type="submit" id="btn-login-submite" name="submit" value="login" class="btn btn-primary btn-lg">Submit</button>
-                        </div>
+                        </form>
 
-                    </form>
+                    </div>
+                    <div class="col-md-12 col-lg-4 col-xl-6 d-flex align-items-center order-1 order-lg-2">
 
-                </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                        <img src="https://img.freepik.com/free-vector/mobile-login-concept-illustration_114360-135.jpg"
+                        class="img-fluid" alt="Sample image">
 
-                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                    class="img-fluid" alt="Sample image">
-
-                </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -77,5 +78,5 @@
         </div>
     </div>
 </section>
-<!-- <script src="public/asset/js/validation-login.js"></script> -->
+<script src="public/asset/js/validation-login.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>

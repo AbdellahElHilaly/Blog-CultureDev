@@ -14,7 +14,6 @@
         public $data;
 
 
-
         public function __construct($host = null, $username = null, $password = null, $dbname = null) {
             if ($host !== null) {
                 $this->host = $host;
@@ -67,6 +66,7 @@
                 }
                 $i++;
             }
+
             
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
@@ -127,5 +127,19 @@
             $data = $this->select("WHERE $property='".$this->data[$property]."'");
             return count($data) != 0;
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>

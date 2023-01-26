@@ -16,7 +16,7 @@ class PostController {
             return $this->updatePost($data  , $data['edit-post']);
         }else if (isset($data['delete-post'])) {
             return $this->deletePost($data['delete-post']);
-        }
+        }else if(isset($data['viwe-post'])) return $this->getPost($data['viwe-post']);
     }
 
 
@@ -72,7 +72,7 @@ class PostController {
         $this->post->set('title', $data['post-title'][ $index]);
         $this->post->set('image' , $imageResult[1]);
         $this->post->set('article', $data['post-article'][ $index]);
-        $this->post->set('admin_id', 40);
+        $this->post->set('admin_id', $_SESSION['admin_id']);
         $this->post->set('category_id', $data['post-categorie_id'][ $index]);
         $this->post->set('datetime',  date("Y-m-d H:i:s"));
         return $this->post->insert();
@@ -86,7 +86,7 @@ class PostController {
         $this->post->set('title', $data['post-title'][0]);
         $this->post->set('image' , $imageResult[1]);
         $this->post->set('article', $data['post-article'][0]);
-        $this->post->set('admin_id', '40');
+        $this->post->set('admin_id', $_SESSION['admin_id']);
         $this->post->set('category_id', $data['post-categorie_id'][0]);
         $this->post->set('datetime',  date("Y-m-d H:i:s"));
         
@@ -103,7 +103,7 @@ class PostController {
     }
 
     public function getPost($id){
-        return $this->post->select("WHERE post_id = ".$id);
+        return $this->post->select("WHERE post_id = ".$id)[0];
     }
     public function deletePost($id){
         return $this->post->delete("WHERE post_id = ".$id);
