@@ -67,5 +67,3 @@ As a developer, I want to be able to:
 
 -   A GitHub repository containing the project
 -   UML diagrams
-
-Please note that this is a sample README file, and the details of the project may differ from the actual project, and it's important to review and adjust the content to match your project's requirements, and also the language should be in English.
