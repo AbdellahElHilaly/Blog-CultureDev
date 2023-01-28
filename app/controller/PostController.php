@@ -8,7 +8,6 @@ class PostController {
     }
 
     public function handleFormData($data) {
-        return $this->getPostJoin();
         if (isset($data['add-posts'])) {
             return $this->addPosts($data);
         } else if (isset($data['add-post'])) {
@@ -17,7 +16,7 @@ class PostController {
             return $this->updatePost($data  , $data['edit-post']);
         }else if (isset($data['delete-post'])) {
             return $this->deletePost($data['delete-post']);
-        }else if(isset($data['viwe-post'])) return $this->getPost($data['viwe-post']);
+        }else if(isset($data['viwe-post'])) return $this->getJoinPosts($data['viwe-post']);
     }
 
 
@@ -73,7 +72,7 @@ class PostController {
         $this->post->set('title', $data['post-title'][ $index]);
         $this->post->set('image' , $imageResult[1]);
         $this->post->set('article', $data['post-article'][ $index]);
-        $this->post->set('admin_id', $_SESSION['admin_id']);
+        $this->post->set('admin_id', 84);
         $this->post->set('category_id', $data['post-categorie_id'][ $index]);
         $this->post->set('datetime',  date("Y-m-d H:i:s"));
         return $this->post->insert();
@@ -87,33 +86,30 @@ class PostController {
         $this->post->set('title', $data['post-title'][0]);
         $this->post->set('image' , $imageResult[1]);
         $this->post->set('article', $data['post-article'][0]);
-        $this->post->set('admin_id', $_SESSION['admin_id']);
+        $this->post->set('admin_id', 84);
         $this->post->set('category_id', $data['post-categorie_id'][0]);
         $this->post->set('datetime',  date("Y-m-d H:i:s"));
         
-        return $this->post->update("WHERE post_id = ".$id);
+        return $this->post->update("WHERE id = ".$id);
     }
 
 
     public function getPosts(){
         return $this->post->select();    
     }
-    public function getJoinPosts(){
-        $array = array("post.category_id" =>"category.id", "post.admin_id" => "admin.id");
-        return $this->post->join("category", "admin", $array);
+    public function getJoinPosts($id = NULL){
+        if($id) return $this->post->join(" WHERE post.id = ". $id)[0];
+        else return $this->post->join();
     }
 
     public function getPost($id){
-        return $this->post->select("WHERE post_id = ".$id)[0];
+        return $this->post->select("WHERE id = ".$id)[0];
     }
     public function deletePost($id){
-        return $this->post->delete("WHERE post_id = ".$id);
+        return $this->post->delete("WHERE id = ".$id);
     }
 
 
-    private function getPostJoin(){
-        return $this->post->join2();
-    }
 
 
 

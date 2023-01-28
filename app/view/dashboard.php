@@ -3,11 +3,13 @@
     require_once 'app/view/include/header.php';
 
     // check if admin is logged in
-    session_start();
-    if(!isset($_SESSION['admin_id'])) {
-        header("Location: login");
-        exit();
-    }
+    // if (session_status() == PHP_SESSION_NONE) {
+    //     session_start();
+    // }
+    // if(!isset($_SESSION['admin_id'])) {
+    //     header("Location: login");
+    //     exit();
+    // }
 
     $postController = new PostController();
     if(isset($_GET['delete-post'])) print_r($postController->handleFormData($_GET)); 
@@ -113,7 +115,7 @@
                                 <?php foreach($category->getCategories() as $category): ?>
                                     <tr>
                                         <th scope="row"><?= $category['id'] ?></th>
-                                        <td><?= $category['category_name'] ?></td>
+                                        <td><?= $category['name'] ?></td>
                                         <td class="d-flex">
                                             <a href="category-form&edit-category=<?=$category['id']?>" type="submit" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit">
                                                 <i class="fas fa-edit"></i>
@@ -160,17 +162,17 @@
                                 <tbody>
                                     <?php foreach($postController->getJoinPosts() as $post): ?>
                                         <tr >
-                                            <th scope="row"><?=$post['post_id'];?></th>
+                                            <th scope="row"><?=$post['id'];?></th>
                                             <td><img src="public/asset/image/<?= $post['image']; ?>" class="img-thumbnail" alt="image" width="50" height="50"></td>
                                             <td><?= $post['title']; ?></td>
                                             <td><?= substr(strip_tags($post['article']), 0, 50) . '...'; ?></td>
-                                            <td><?= $post['category_name']; ?></td>
-                                            <td><?= $post['admin_name']; ?></td>
+                                            <td><?= $post['category']; ?></td>
+                                            <td><?= $post['admin']; ?></td>
                                             <td><?= $post['datetime']; ?></td>
                                             <td class="" >
-                                                <a href="post-form&id=<?=$post['post_id'];?>&action=edit-post" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
-                                                <a href="singlpost&viwe-post=<?=$post['post_id']?>" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
-                                                <a href="dashboard&delete-post=<?=$post['post_id']?>" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
+                                                <a href="post-form&id=<?=$post['id'];?>&action=edit-post" class="text-success me-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
+                                                <a href="singlpost&viwe-post=<?=$post['id']?>" class="text-info me-2" data-toggle="tooltip" data-placement="top" title="Show"><i class="fas fa-eye me"></i></a>
+                                                <a href="dashboard&delete-post=<?=$post['id']?>" class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -207,7 +209,7 @@
                                     <?php foreach($adminController->getAdmin() as $developer): ?>
                                         <tr>
                                             <th scope="row"><?= $developer['id'] ?></th>
-                                            <td><?= $developer['admin_name'] ?></td>
+                                            <td><?= $developer['name'] ?></td>
                                             <td><?= $developer['email'] ?></td>
                                             <td>no data ! </td> 
                                             <td >

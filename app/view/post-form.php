@@ -64,7 +64,7 @@
                             <div class="form-group">
                                 <select class="form-control" name="post-categorie_id[]" aria-label="Default select example">
                                     <?php foreach($category->getCategories() as $category): ?>
-                                        <option value="<?=$category['id'] ?>"><?= $category['category_name'] ?></option>
+                                        <option value="<?=$category['id'] ?>"><?= $category['name'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>

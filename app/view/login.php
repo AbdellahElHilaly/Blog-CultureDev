@@ -2,7 +2,6 @@
     require_once 'app/view/include/header.php';
     $adminController = new AdminController();
 ?>
-    
 
 
 
@@ -20,7 +19,7 @@
                 <?php else:?>
                     <?php $color='success' ; $message = "welcome " . $_SESSION['admin_name'] ;
                     include_once 'app/view/include/alert.php';
-                    header("Refresh: 0.5; url=dashboard");
+                    // header("Refresh: 0.5; url=dashboard");
                     ?>
                 <?php endif;?>
             <?php endif;?>

@@ -50,50 +50,34 @@
                 return false;
             }
         }
-        public function join2(){
-            $sql = "SELECT * FROM " . $this->table ;
+        public function join( $WHERE=NULL , $join="INNER"){
 
-            
-            // $columns = implode(array_values($this->dataJoin), array_keys($this->dataJoin));
+            $sql = "SELECT  $this->table." . implode( " ,  $this->table." , array_keys($this->data))." , ";
+
+            for($i=0 ;  $i< count($this->dataJoin) ; $i++){
+                
+                $sql.= array_keys($this->dataJoin)[$i] .".name  as " . array_keys($this->dataJoin)[$i] ;
+
+                if($i < count($this->dataJoin)-1)  $sql.=  " , ";
+                else $sql.= " FROM $this->table ";
+            }
 
 
             for($i=0 ;  $i< count($this->dataJoin) ; $i++){
                 
-                $sql .=   "INNER JOIN " . array_keys($this->dataJoin)[$i] . "ON";
-                print_r(array_values($this->dataJoin)[$i]);
-
-                echo "<br> ";    
-
-
+                $sql .=   "  $join JOIN  " . array_keys($this->dataJoin)[$i] . "  ON  " . $this->table . 
+                "." . array_values($this->dataJoin)[$i]  . "  =  " . array_keys($this->dataJoin)[$i] . '.id ';
             }
-
-    
-            // print_r($sql);
-            die();
-        }
-        public function join() {
-            $args = func_get_args();  //get args in forme  array 
-            $tables = array_slice($args, 0, -1); //filter last element (remove)
-            $on = array_slice($args, -1)[0]; //filter all element without the last 
-
-            $sql = "SELECT * FROM $this->table INNER JOIN ";
-            $count = count($on);
-            $i = 1;
-            foreach($on as $key => $value) {
-                $sql .= $tables[$i - 1];
-                $sql .= " ON $key = $value";
-                if($i < $count) {
-                    $sql .= " INNER JOIN ";
-                }
-                $i++;
-            }
-
             
+            if($WHERE) $sql.= " $WHERE";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            
             return $data;
         }
+
                 
         
 

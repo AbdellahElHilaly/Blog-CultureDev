@@ -114,9 +114,10 @@
             $tempAdmin = $this->admin->select("WHERE email = '" . $email . "'")[0];
         
             if (!password_verify($password, $tempAdmin['password'])) return "Incorrect password.";
-
-              // Start the session
-            session_start();
+            // Start the session
+            // if (session_status() == PHP_SESSION_NONE) {
+            //     session_start();
+            // }
 
             // Store the admin's id and name in the session
             $_SESSION['admin_id'] = $tempAdmin['id'];

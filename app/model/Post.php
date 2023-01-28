@@ -18,6 +18,7 @@ class Post extends MySQLDatabase {
         $this->category_id = $category_id;
 
         $this->data = [
+            'id'      =>  NULL,
             'title' => $this->title,
             'image' => $this->image,
             'article' => $this->article,
